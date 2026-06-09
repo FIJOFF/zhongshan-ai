@@ -19,29 +19,47 @@ header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:lin
 .dl-btn{border-color:rgba(0,229,255,.35);background:rgba(0,229,255,.1)}
 .dl-btn:hover{background:rgba(0,229,255,.22)}
 #pageInfo{font-size:13px;padding:0 8px;color:rgba(255,255,255,.9);white-space:nowrap}
-#hamburger{display:none}
-.body-wrap{display:flex;padding-top:var(--header-h);height:100vh;overflow:hidden}
-.sidebar{width:var(--sidebar-w);background:var(--sidebar-bg);flex-shrink:0;overflow-y:auto;padding:10px 6px;scrollbar-width:thin;scrollbar-color:#2e4f7a #18283f;transition:transform .28s ease}
+#hamburger{display:flex}
+.body-wrap{display:flex;padding-top:var(--header-h);height:100vh;overflow:hidden;position:relative}
+.sidebar{width:var(--sidebar-w);background:var(--sidebar-bg);flex-shrink:0;overflow-y:auto;padding:10px 6px;scrollbar-width:thin;scrollbar-color:#2e4f7a #18283f;transition:width .28s ease,padding .28s ease,min-width .28s ease}
+.sidebar.collapsed{width:0;min-width:0;padding-left:0;padding-right:0;overflow:hidden}
 .sidebar::-webkit-scrollbar{width:3px}
 .sidebar::-webkit-scrollbar-thumb{background:#2e4f7a;border-radius:2px}
-.sidebar-hdr{font-size:10px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:1.5px;padding:0 3px 8px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:8px}
+.sidebar-hdr{font-size:10px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:1.5px;padding:0 3px 8px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:8px;white-space:nowrap}
 .thumb-item{cursor:pointer;border-radius:6px;overflow:hidden;margin-bottom:6px;border:2px solid transparent;background:rgba(255,255,255,.03);transition:border-color .18s,background .18s;position:relative;aspect-ratio:288/162}
 .thumb-item:hover{border-color:rgba(13,123,216,.45);background:rgba(255,255,255,.07)}
 .thumb-item.active{border-color:#0d7bd8;box-shadow:0 0 0 2px rgba(13,123,216,.25)}
 .thumb-item img{width:100%;display:block;position:absolute;top:0;left:0;height:100%;object-fit:cover}
 .thumb-num{position:absolute;bottom:3px;right:4px;font-size:9px;font-weight:700;color:rgba(255,255,255,.85);background:rgba(0,0,0,.52);padding:1px 4px;border-radius:3px;z-index:1}
-.content-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 16px 80px;background:#dce3ef;scroll-behavior:smooth;will-change:scroll-position}
-.slide-item{width:100%;display:flex;justify-content:center;margin-bottom:28px;padding:0 12px;min-height:200px;background:linear-gradient(180deg,rgba(220,227,239,0) 0%,rgba(220,227,239,.3) 100%)}
+.content-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 16px 80px;background:#dce3ef;scroll-behavior:smooth;will-change:scroll-position;min-width:0}
+.slide-item{width:100%;display:flex;justify-content:center;margin-bottom:28px;padding:0 12px}
 .slide-item img{max-width:100%;height:auto;display:block;border-radius:4px;box-shadow:0 10px 40px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.1)}
 .slide-item.active img{box-shadow:0 10px 48px rgba(0,0,0,.26),0 2px 8px rgba(0,0,0,.1),0 0 0 3px rgba(13,123,216,.2)}
+/* Sidebar toggle button on content area edge */
+.sidebar-toggle{position:fixed;top:calc(var(--header-h) + 8px);left:var(--sidebar-w);width:20px;height:48px;background:rgba(13,123,216,.85);color:#fff;border:none;border-radius:0 6px 6px 0;cursor:pointer;z-index:180;display:flex;align-items:center;justify-content:center;font-size:11px;transition:left .28s ease,opacity .2s;opacity:.5;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:1px;font-size:10px}
+.sidebar-toggle:hover{opacity:1;width:24px}
+.sidebar-toggle.shifted{left:0px}
 .page-indicator{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:rgba(20,40,70,.88);color:#fff;font-size:13px;padding:6px 18px;border-radius:20px;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:190;pointer-events:none;backdrop-filter:blur(6px);transition:opacity .4s}
 .back-top{position:fixed;bottom:22px;right:22px;width:38px;height:38px;background:rgba(20,40,70,.85);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50%;cursor:pointer;z-index:190;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s;opacity:0;pointer-events:none}
 .back-top.show{opacity:1;pointer-events:auto}
 .back-top:hover{background:rgba(13,123,216,.85)}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:299}
 .overlay.show{display:block}
-.loading-indicator{text-align:center;padding:40px;color:#8898b0;font-size:14px;display:none}
-@media(max-width:768px){:root{--header-h:52px}#hamburger{display:flex}.sidebar{position:fixed;top:var(--header-h);left:0;bottom:0;z-index:300;transform:translateX(-100%);width:220px}.sidebar.open{transform:translateX(0)}.hdr-l h1{font-size:13px;max-width:calc(100vw - 120px)}.hdr-l .sub{display:none}.content-area{padding:16px 6px 60px}.slide-item{margin-bottom:18px;padding:0 4px;min-height:120px}.slide-item img{border-radius:2px}.page-indicator{bottom:18px;font-size:12px;padding:5px 14px}.back-top{bottom:14px;right:12px;width:34px;height:34px;font-size:16px}}
+@media(max-width:768px){
+  :root{--header-h:52px}
+  #hamburger{display:flex}
+  .sidebar{position:fixed;top:var(--header-h);left:0;bottom:0;z-index:300;transform:translateX(-100%);width:220px;transition:transform .28s ease}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar.collapsed{width:220px;min-width:220px;transform:translateX(-100%);padding:10px 6px}
+  .sidebar-toggle{display:none}
+  .hdr-l h1{font-size:13px;max-width:calc(100vw - 120px)}
+  .hdr-l .sub{display:none}
+  .content-area{padding:16px 6px 60px}
+  .slide-item{margin-bottom:18px;padding:0 4px}
+  .slide-item img{border-radius:2px}
+  .page-indicator{bottom:18px;font-size:12px;padding:5px 14px}
+  .back-top{bottom:14px;right:12px;width:34px;height:34px;font-size:16px}
+}
 @media(min-width:769px){.page-indicator{display:none}}
 </style>
 </head>
@@ -61,6 +79,10 @@ PDF
 <button class="btn" id="fsBtn" onclick="toggleFullscreen()" title="Fullscreen">&#9974;</button>
 </div>
 </header>
+
+<!-- Toggle button on the edge of sidebar -->
+<button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">&#9776; 目录</button>
+
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 <div class="body-wrap">
 <aside class="sidebar" id="sidebar">
@@ -75,11 +97,13 @@ PDF
 <button class="back-top" id="backTop" onclick="scrollToSlide(0)" title="Top">&#9650;</button>
 <script>
 (function(){
-  var T=52,cur=0,ticking=false,observer;
+  var T=52,cur=0,ticking=false,observer,isCollapsed=false;
   var CA=document.getElementById('contentArea'),
       PI=document.getElementById('pageInfo'),
       PM=document.getElementById('pageIndicatorMobile'),
-      BT=document.getElementById('backTop');
+      BT=document.getElementById('backTop'),
+      SB=document.getElementById('sidebar'),
+      TG=document.getElementById('sidebarToggle');
 
   // ---- Intersection Observer lazy loading ----
   function initLazyLoad(){
@@ -91,18 +115,48 @@ PDF
           if(img.dataset.src){
             img.src = img.dataset.src;
             img.removeAttribute('data-src');
-            img.onload = function(){ img.classList.add('loaded'); };
           }
           observer.unobserve(img);
         }
       });
     }, { rootMargin: rootMargin, threshold: 0 });
 
-    // Observe all images with data-src (both sidebar + content)
     document.querySelectorAll('img[data-src]').forEach(function(img){
       observer.observe(img);
     });
   }
+
+  // ---- Sidebar toggle ----
+  window.toggleSidebar = function(){
+    if(window.innerWidth < 769){
+      // Mobile: toggle open/close
+      SB.classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('show');
+      return;
+    }
+    // Desktop: toggle collapsed
+    isCollapsed = !isCollapsed;
+    SB.classList.toggle('collapsed', isCollapsed);
+    TG.classList.toggle('shifted', isCollapsed);
+    if(isCollapsed){
+      TG.innerHTML = '&#9654; 目录';
+    } else {
+      TG.innerHTML = '&#9776; 目录';
+    }
+    // Adjust toggle button position
+    if(isCollapsed){
+      TG.style.left = '0px';
+    } else {
+      TG.style.left = '';
+    }
+  };
+
+  window.closeSidebar = function(){
+    if(window.innerWidth < 769){
+      SB.classList.remove('open');
+      document.getElementById('overlay').classList.remove('show');
+    }
+  };
 
   // ---- Scroll position tracking ----
   var SS=document.querySelectorAll('.slide-item'),
@@ -134,16 +188,6 @@ PDF
     if(i<0||i>=T)return;
     SS[i].scrollIntoView({behavior:'smooth',block:'center'});
     if(window.innerWidth<769)closeSidebar();
-  };
-
-  window.toggleSidebar = function(){
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('overlay').classList.toggle('show');
-  };
-
-  window.closeSidebar = function(){
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('overlay').classList.remove('show');
   };
 
   window.toggleFullscreen = function(){
